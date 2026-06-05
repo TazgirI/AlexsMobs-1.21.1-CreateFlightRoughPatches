@@ -1,5 +1,6 @@
 package com.github.alexthe666.alexsmobs.entity;
 
+import com.github.alexthe666.alexsmobs.AlexsMobs;
 import com.github.alexthe666.alexsmobs.config.AMConfig;
 import com.github.alexthe666.alexsmobs.entity.ai.*;
 import com.github.alexthe666.alexsmobs.misc.AMSoundRegistry;
@@ -160,7 +161,8 @@ public class EntitySnowLeopard extends Animal implements IAnimatedEntity, ITarge
         return AMEntityRegistry.SNOW_LEOPARD.get().create(serverWorld);
     }
 
-    public void tick(){
+    public void tick()
+    {
         super.tick();
         this.prevSitProgress = sitProgress;
         this.prevSneakProgress = sneakProgress;
@@ -171,6 +173,11 @@ public class EntitySnowLeopard extends Animal implements IAnimatedEntity, ITarge
         final boolean slSneaking = isSLSneaking();
         final boolean tackling = isTackling();
         final boolean sleeping = isSleeping();
+
+        if(sleeping)
+        {
+            AlexsMobs.LOGGER.warn("AHHHHHHHHHHHHH I AM A SNOW LEOPARD AND I AM SLEEPING");
+        }
 
         if (sitting) {
             if (sitProgress < 5F) {
@@ -294,8 +301,9 @@ public class EntitySnowLeopard extends Animal implements IAnimatedEntity, ITarge
         return this.entityData.get(SLEEPING);
     }
 
-    public void setSleeping(boolean sleeping) {
-        this.entityData.set(SLEEPING, Boolean.valueOf(sleeping));
+    public void setSleeping(boolean sleeping)
+    {
+        setSitting(sleeping);
     }
 
     @Override
